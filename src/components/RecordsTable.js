@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Label, Menu, Table, Header, Link } from 'semantic-ui-react';
+import { Table, Header } from 'semantic-ui-react';
 
 const EntryRows = ({ entries, eventType }) => {
   if (entries) {
@@ -15,7 +15,7 @@ const createTableRow = ({ skylink, metadata, timestamp }, eventType) => {
   return (
     <Table.Row key={timestamp}>
       <Table.Cell>
-        <a href={skylink} target="_blank">
+        <a href={skylink} target="_blank" rel="noreferrer">
           {skylink}
         </a>
       </Table.Cell>
