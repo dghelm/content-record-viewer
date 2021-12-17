@@ -14,6 +14,8 @@ import {
 
 // Import the SkynetClient and a helper
 import { SkynetClient } from 'skynet-js';
+import { deriveDiscoverableTweak } from 'skynet-js/dist/mysky/tweak';
+
 import { ContentRecordDAC } from 'content-record-library';
 import MySkyButton from './components/LoginButton';
 import RecordsTable from './components/RecordsTable';
@@ -41,6 +43,14 @@ const App = () => {
   // const [records, setRecords] = useState(dataFound.entries);
   const [skappName, setSkappName] = useState('localhost');
   const [loading, setLoading] = useState(false);
+  const [pathInput, setPathInput] = useState('');
+  const [pathTweak, setPathTweak] = useState('');
+
+  useEffect(() => {
+    const a = deriveDiscoverableTweak(pathInput);
+    console.log(a);
+    setPathTweak(a);
+  }, [pathInput]);
 
   // const dataDomain =
   //   window.location.hostname === 'localhost' ? 'localhost' : 'skey.hns';
@@ -66,7 +76,7 @@ const App = () => {
     async function initMySky() {
       try {
         // const mySky = await client.loadMySky(dataDomain);
-        const mySky = await client.loadMySky();
+        const mySky = await client.loadMySky(undefined, { debug: true });
         // await mySky.loadDacs(contentRecord);
 
         const loggedIn = await mySky.checkLogin();
@@ -191,6 +201,16 @@ const App = () => {
           skappName={recordsLabel.skappName}
         />
       )}
+      <Divider />
+      <Header as="h5">Path Input to Data Key Tester</Header>
+      <Input
+        // label={/'}
+        value={pathInput}
+        onChange={(e) => {
+          setPathInput(e.target.value);
+        }}
+      />
+      <Header as="h5">{pathTweak}</Header>
     </Container>
   );
 };
