@@ -103,7 +103,7 @@ const App = () => {
 
       destroyMySky();
     };
-  }, []);
+  }, [mySky]);
 
   const handleMySkyLogin = async () => {
     const status = await mySky.requestLoginAccess();
